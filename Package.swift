@@ -11,13 +11,12 @@ let package = Package(
   products: [
     .library(
       name: "MisakiSwift",
-      type: .dynamic,
       targets: ["MisakiSwift"]
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/ml-explore/mlx-swift", exact: "0.30.2"),
-    .package(url: "https://github.com/mlalma/MLXUtilsLibrary.git", exact: "0.0.6")
+    .package(url: "https://github.com/ml-explore/mlx-swift", .upToNextMinor(from: "0.30.6")),
+    .package(path: "../MLXUtilsLibrary")
   ],
   targets: [
     .target(
@@ -28,7 +27,14 @@ let package = Package(
         .product(name: "MLXUtilsLibrary", package: "MLXUtilsLibrary")
      ],
      resources: [
-      .copy("../../Resources/")
+      .process("../../Resources/us_bart_config.json"),
+      .process("../../Resources/us_gold.json"),
+      .process("../../Resources/us_silver.json"),
+      .process("../../Resources/us_bart.safetensors"),
+      .process("../../Resources/gb_bart_config.json"),
+      .process("../../Resources/gb_gold.json"),
+      .process("../../Resources/gb_silver.json"),
+      .process("../../Resources/gb_bart.safetensors"),
      ]
     ),
     .testTarget(
